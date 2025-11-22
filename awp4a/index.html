@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bean Corner — Mobile</title>
+
+  <!-- jQuery (required) -->
+  <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+
+  <!-- jQuery Mobile CSS -->
+  <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+
+  <!-- jQuery Mobile JS -->
+  <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- Custom JS -->
+  <script defer src="app.js"></script>
+</head>
+<body>
+
+  <!-- Home Page -->
+  <div data-role="page" id="home" data-theme="a">
+    <div data-role="header" class="header">
+      <h1 class="brand"><span class="logo">☕</span> Bean Corner</h1>
+    </div>
+
+    <div role="main" class="ui-content home-content">
+      <div class="hero">
+        <h2>Fresh. Cozy. Local.</h2>
+        <p class="hero-sub">Daily-roasted beans • Pastries baked in-house</p>
+      </div>
+
+      <div class="quick-links ui-grid-b">
+        <div class="ui-block-a"><a href="#menu" class="ui-btn ui-corner-all ui-shadow ui-mini" data-transition="slide">Menu</a></div>
+        <div class="ui-block-b"><a href="#gallery" class="ui-btn ui-corner-all ui-shadow ui-mini" data-transition="slide">Gallery</a></div>
+        <div class="ui-block-c"><a href="#contact" class="ui-btn ui-corner-all ui-shadow ui-mini" data-transition="slide">Contact</a></div>
+      </div>
+
+      <h3>Today's Special</h3>
+      <div class="ui-bar special">
+        <h4>Caramel Honey Latte</h4>
+        <p>Drizzled with house-made caramel — limited time.</p>
+        <a href="#menu" class="ui-btn ui-corner-all ui-shadow ui-btn-inline" data-transition="slide">View Menu</a>
+      </div>
+
+      <h3>Popular Picks</h3>
+      <ul data-role="listview" data-inset="true" class="popular-list">
+        <li><a href="#menu">Flat White</a></li>
+        <li><a href="#menu">Iced Cold Brew</a></li>
+        <li><a href="#menu">Blueberry Scone</a></li>
+      </ul>
+    </div>
+
+    <div data-role="footer" class="footer">
+      <div class="ui-grid-b footer-grid">
+        <div class="ui-block-a"><a href="#home" class="ui-btn ui-mini ui-corner-all" data-icon="home">Home</a></div>
+        <div class="ui-block-b"><a href="#menu" class="ui-btn ui-mini ui-corner-all" data-icon="grid">Menu</a></div>
+        <div class="ui-block-c"><a href="#contact" class="ui-btn ui-mini ui-corner-all" data-icon="star">Hours</a></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Menu Page -->
+  <div data-role="page" id="menu">
+    <div data-role="header">
+      <a href="#home" data-icon="back" class="ui-btn-left ui-btn ui-corner-all ui-icon-back ui-btn-icon-left">Back</a>
+      <h1>Menu</h1>
+    </div>
+
+    <div role="main" class="ui-content">
+      <p>Tap a section to expand.</p>
+
+      <div data-role="collapsible-set">
+        <div data-role="collapsible" data-collapsed="true">
+          <h3>Coffee</h3>
+          <ul data-role="listview" data-inset="true">
+            <li>Espresso — ₹80</li>
+            <li>Americano — ₹110</li>
+            <li>Flat White — ₹150</li>
+            <li>Caramel Honey Latte — ₹180 (Special)</li>
+          </ul>
+        </div>
+
+        <div data-role="collapsible" data-collapsed="true">
+          <h3>Tea & Cold</h3>
+          <ul data-role="listview" data-inset="true">
+            <li>Masala Chai — ₹70</li>
+            <li>Iced Cold Brew — ₹140</li>
+            <li>Matcha Latte — ₹160</li>
+          </ul>
+        </div>
+
+        <div data-role="collapsible" data-collapsed="true">
+          <h3>Pastries</h3>
+          <ul data-role="listview" data-inset="true">
+            <li>Blueberry Scone — ₹90</li>
+            <li>Croissant — ₹120</li>
+            <li>Banana Bread — ₹100</li>
+          </ul>
+        </div>
+      </div>
+
+      <a href="#home" class="ui-btn ui-corner-all ui-shadow" data-transition="slide">Back to Home</a>
+    </div>
+
+    <div data-role="footer">
+      <h4>Bean Corner</h4>
+    </div>
+  </div>
+
+  <!-- Gallery Page -->
+  <div data-role="page" id="gallery">
+    <div data-role="header">
+      <a href="#home" data-icon="back" class="ui-btn-left ui-btn ui-corner-all ui-icon-back ui-btn-icon-left">Back</a>
+      <h1>Gallery</h1>
+    </div>
+
+    <div role="main" class="ui-content">
+      <div class="ui-grid-a gallery-grid">
+        <div class="ui-block-a"><div class="img-placeholder">Espresso</div></div>
+        <div class="ui-block-b"><div class="img-placeholder">Latte</div></div>
+        <div class="ui-block-a"><div class="img-placeholder">Pastry</div></div>
+        <div class="ui-block-b"><div class="img-placeholder">Interior</div></div>
+      </div>
+
+      <a href="#home" class="ui-btn ui-corner-all ui-shadow">Back</a>
+    </div>
+
+    <div data-role="footer">
+      <h4>Photos</h4>
+    </div>
+  </div>
+
+  <!-- Contact / Hours Page -->
+  <div data-role="page" id="contact">
+    <div data-role="header">
+      <a href="#home" data-icon="back" class="ui-btn-left ui-btn ui-corner-all ui-icon-back ui-btn-icon-left">Back</a>
+      <h1>Contact</h1>
+    </div>
+
+    <div role="main" class="ui-content">
+      <h3>Opening Hours</h3>
+      <p>Mon–Fri: 7:00 — 19:00<br>Sat–Sun: 8:00 — 17:00</p>
+
+      <h3>Send us a message</h3>
+      <form id="contactForm">
+        <label for="cname">Name</label>
+        <input type="text" id="cname" name="cname" placeholder="Your name">
+
+        <label for="cphone">Phone</label>
+        <input type="tel" id="cphone" name="cphone" placeholder="Optional">
+
+        <label for="cmsg">Message</label>
+        <textarea id="cmsg" name="cmsg" rows="4"></textarea>
+
+        <button type="submit" class="ui-btn ui-btn-b ui-corner-all">Send</button>
+      </form>
+
+      <div id="toast" class="toast" style="display:none;"></div>
+    </div>
+
+    <div data-role="footer">
+      <h4>Visit us • 123 Coffee Lane</h4>
+    </div>
+  </div>
+
+</body>
+</html>

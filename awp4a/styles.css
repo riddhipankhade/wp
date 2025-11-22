@@ -1,0 +1,33 @@
+/* styles.css - nicer theme for the coffee shop demo */
+body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; }
+
+/* Brand header */
+.header { background: #5a3e2b; color: #fff; border: none; }
+.brand { margin:0; font-size:18px; display:flex; align-items:center; gap:8px; }
+.logo { font-size:22px; }
+
+/* Hero */
+.hero { background: linear-gradient(180deg, #f7efe6 0%, #fff 100%); padding:14px; border-radius:8px; text-align:center; margin-bottom:12px; }
+.hero h2 { margin:0 0 6px 0; font-size:20px; }
+.hero .hero-sub { margin:0; color:#6b5a4a; font-size:14px; }
+
+/* Special card */
+.special { background:#fff8f1; border-left:4px solid #c48b59; padding:10px; margin-bottom:12px; }
+
+/* Quick links spacing */
+.quick-links .ui-btn { width:100%; }
+
+/* Gallery placeholders */
+.gallery-grid .img-placeholder { height:110px; display:flex; align-items:center; justify-content:center; background:#efe7df; border-radius:6px; color:#6b5a4a; }
+
+/* Footer */
+.footer { background:#faf5f2; padding:8px 0; border-top:1px solid #eee; }
+
+/* Toast */
+.toast { position:fixed; left:50%; transform:translateX(-50%); bottom:18px; padding:8px 14px; background:#333; color:#fff; border-radius:20px; z-index:9999; font-size:13px; }
+
+/* List tweaks */
+.popular-list li a { font-weight:500; }
+
+/* Small responsive tweak for grid spacing */
+.ui-grid-b .ui-block-a, .ui-grid-b .ui-block-b, .ui-grid-b .ui-block-c { padding:6px; }
