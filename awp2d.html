@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Train Simulation using JavaScript Event Handling</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(#87CEEB, #a0e0a0);
+    overflow: hidden;
+    text-align: center;
+  }
+
+  h2 {
+    margin-top: 20px;
+    color: #1e3a8a;
+  }
+
+  .buttons {
+    margin: 20px;
+  }
+
+  button {
+    padding: 10px 20px;
+    margin: 5px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    color: white;
+    cursor: pointer;
+  }
+
+  #start { background-color: #22c55e; }
+  #stop { background-color: #ef4444; }
+  #reset { background-color: #3b82f6; }
+
+  /* Track */
+  .track {
+    position: absolute;
+    bottom: 100px;
+    left: 0;
+    width: 100%;
+    height: 8px;
+    background: #444;
+  }
+
+  /* Train */
+  .train {
+    position: absolute;
+    bottom: 110px;
+    left: 0;
+    display: flex;
+    align-items: flex-end;
+    transition: left 0.1s linear;
+  }
+
+  .engine, .coach {
+    width: 100px;
+    height: 60px;
+    background: #c0392b;
+    margin-right: 5px;
+    border-radius: 8px;
+    border: 2px solid #222;
+    position: relative;
+  }
+
+  .engine {
+    background: #e74c3c;
+  }
+
+  /* Windows */
+  .window {
+    width: 25px;
+    height: 20px;
+    background: #b3e5fc;
+    border: 2px solid #1e3a8a;
+    position: absolute;
+    top: 10px;
+  }
+  .window1 { left: 10px; }
+  .window2 { left: 45px; }
+  .window3 { left: 80px; }
+
+  /* Wheels */
+  .wheel {
+    width: 20px;
+    height: 20px;
+    background: #222;
+    border-radius: 50%;
+    position: absolute;
+    bottom: -10px;
+  }
+  .wheel1 { left: 10px; }
+  .wheel2 { right: 10px; }
+
+  /* Smoke (optional simple animation) */
+  .smoke {
+    position: absolute;
+    top: -15px;
+    left: 80px;
+    width: 10px;
+    height: 10px;
+    background: rgba(255,255,255,0.8);
+    border-radius: 50%;
+    animation: smoke 1s linear infinite;
+  }
+
+  @keyframes smoke {
+    0% { transform: translateY(0) scale(1); opacity: 1; }
+    100% { transform: translateY(-20px) scale(1.5); opacity: 0; }
+  }
+</style>
+</head>
+<body>
+
+  <h2>Moving Train Simulation using JavaScript Event Handling</h2>
+
+  <div class="buttons">
+    <button id="start">Start</button>
+    <button id="stop">Stop</button>
+    <button id="reset">Reset</button>
+  </div>
+
+  <!-- Train -->
+  <div class="train" id="train">
+    <div class="engine">
+      <div class="smoke"></div>
+      <div class="window window1"></div>
+      <div class="wheel wheel1"></div>
+      <div class="wheel wheel2"></div>
+    </div>
+    <div class="coach">
+      <div class="window window1"></div>
+      <div class="window window2"></div>
+      <div class="wheel wheel1"></div>
+      <div class="wheel wheel2"></div>
+    </div>
+    <div class="coach">
+      <div class="window window1"></div>
+      <div class="window window2"></div>
+      <div class="wheel wheel1"></div>
+      <div class="wheel wheel2"></div>
+    </div>
+  </div>
+
+  <div class="track"></div>
+
+  <script>
+    let train = document.getElementById('train');
+    let position = 0;
+    let moving = null;
+
+    // Start button event
+    document.getElementById('start').addEventListener('click', function() {
+      if (!moving) {
+        moving = setInterval(() => {
+          position += 5;
+          train.style.left = position + 'px';
+          if (position > window.innerWidth) {
+            position = -300; // reset when it goes off-screen
+          }
+        }, 50);
+      }
+    });
+
+    // Stop button event
+    document.getElementById('stop').addEventListener('click', function() {
+      clearInterval(moving);
+      moving = null;
+    });
+
+    // Reset button event
+    document.getElementById('reset').addEventListener('click', function() {
+      clearInterval(moving);
+      moving = null;
+      position = 0;
+      train.style.left = position + 'px';
+    });
+  </script>
+
+</body>
+</html>

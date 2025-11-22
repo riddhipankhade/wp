@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html ng-app="UserApp">
+<head>
+  <meta charset="utf-8" />
+  <title>AngularJS - Register / Login / Profile</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 24px; color:#111; }
+    .layout { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; max-width:1000px; margin:auto; }
+    .card { border:1px solid #ddd; padding:18px; border-radius:6px; background:#fff; }
+    h2 { margin-top:0; }
+    label { display:block; margin:8px 0 4px; font-weight:600; }
+    input { width:100%; padding:8px 10px; border:1px solid #bbb; border-radius:4px; box-sizing:border-box; }
+    .small { width:auto; padding:6px 10px; margin-top:12px; cursor:pointer; }
+    .error { color:#c62828; margin-top:8px; }
+    .profile-field { margin:10px 0; }
+    @media (max-width:760px){ .layout { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body ng-controller="UserController as vm">
+
+  <h1 style="text-align:center">AngularJS User App — Register, Login, Profile</h1>
+
+  <div class="layout">
+    <!-- Register Card -->
+    <div class="card" ng-if="!vm.isRegistered">
+      <h2>Register</h2>
+
+      <label for="regUser">Username</label>
+      <input id="regUser" type="text" ng-model="vm.register.username" placeholder="Enter username">
+
+      <label for="regPass">Password</label>
+      <input id="regPass" type="{{ vm.showReg ? 'text' : 'password' }}" ng-model="vm.register.password" placeholder="Enter password">
+
+      <div style="margin-top:10px;">
+        <button class="small" ng-click="vm.showReg = !vm.showReg">{{ vm.showReg ? 'Hide' : 'Show' }} password</button>
+        <button class="small" ng-click="vm.registerUser()">Register</button>
+      </div>
+
+      <div class="error" ng-if="vm.registerError">{{ vm.registerError }}</div>
+    </div>
+
+    <!-- Login Card -->
+    <div class="card" ng-if="vm.isRegistered && !vm.isLoggedIn">
+      <h2>Login</h2>
+
+      <label for="logUser">Username</label>
+      <input id="logUser" type="text" ng-model="vm.login.username" placeholder="Enter username">
+
+      <label for="logPass">Password</label>
+      <input id="logPass" type="{{ vm.showLogin ? 'text' : 'password' }}" ng-model="vm.login.password" placeholder="Enter password">
+
+      <div style="margin-top:10px;">
+        <button class="small" ng-click="vm.showLogin = !vm.showLogin">{{ vm.showLogin ? 'Hide' : 'Show' }} password</button>
+        <button class="small" ng-click="vm.loginUser()">Login</button>
+      </div>
+
+      <div class="error" ng-if="vm.loginError">{{ vm.loginError }}</div>
+    </div>
+
+    <!-- Profile Card -->
+    <div class="card" ng-if="vm.isLoggedIn">
+      <h2>User Profile</h2>
+
+      <div class="profile-field"><strong>Username:</strong> {{ vm.user.username }}</div>
+      <div class="profile-field"><strong>Password:</strong> {{ vm.user.password }}</div>
+
+      <div style="margin-top:12px;">
+        <button class="small" ng-click="vm.logout()">Logout</button>
+        <button class="small" ng-click="vm.deleteUser()" style="margin-left:8px;">Delete User (clear)</button>
+      </div>
+    </div>
+
+    <!-- Info / Status card -->
+    <div class="card">
+      <h2>Instructions / Status</h2>
+      <p>This demo keeps the registered user in <code>localStorage</code>. If you refresh the page you remain registered (unless you delete).</p>
+      <p>Use the Register card to create a user, then Login to show the Profile card. Use Delete User to clear registration.</p>
+
+      <hr />
+      <div><strong>Registered:</strong> {{ vm.isRegistered }}</div>
+      <div><strong>Logged in:</strong> {{ vm.isLoggedIn }}</div>
+    </div>
+  </div>
+
+  <script>
+    angular.module('UserApp', [])
+      .controller('UserController', ['$window', function($window) {
+        const vm = this;
+
+        // Initialize models
+        vm.register = {};
+        vm.login = {};
+        vm.user = {};
+        vm.isRegistered = false;
+        vm.isLoggedIn = false;
+        vm.registerError = '';
+        vm.loginError = '';
+        vm.showReg = false;
+        vm.showLogin = false;
+
+        // Try to load user from localStorage (persist registration across refresh)
+        const stored = $window.localStorage.getItem('awp_user');
+        if (stored) {
+          try {
+            vm.user = JSON.parse(stored);
+            if (vm.user && vm.user.username) {
+              vm.isRegistered = true;
+            }
+          } catch (e) {
+            // ignore parse errors
+            $window.localStorage.removeItem('awp_user');
+          }
+        }
+
+        // Register function
+        vm.registerUser = function() {
+          vm.registerError = '';
+          if (!vm.register.username || !vm.register.password) {
+            vm.registerError = 'Please enter both username and password.';
+            return;
+          }
+          // Basic validation example: username min 3, password min 6
+          if (vm.register.username.length < 3) {
+            vm.registerError = 'Username must be at least 3 characters.';
+            return;
+          }
+          if (vm.register.password.length < 6) {
+            vm.registerError = 'Password must be at least 6 characters.';
+            return;
+          }
+
+          // Save user in-memory and to localStorage
+          vm.user = {
+            username: vm.register.username,
+            password: vm.register.password
+          };
+          $window.localStorage.setItem('awp_user', JSON.stringify(vm.user));
+          vm.isRegistered = true;
+
+          // clear form fields
+          vm.register = {};
+          alert('Registered Successfully!');
+        };
+
+        // Login function
+        vm.loginUser = function() {
+          vm.loginError = '';
+          if (!vm.login.username || !vm.login.password) {
+            vm.loginError = 'Please enter username and password.';
+            return;
+          }
+          // Check against stored user
+          if (!vm.user || !vm.user.username) {
+            vm.loginError = 'No user registered. Please register first.';
+            return;
+          }
+          if (vm.login.username === vm.user.username && vm.login.password === vm.user.password) {
+            vm.isLoggedIn = true;
+            vm.login = {};
+            vm.loginError = '';
+            alert('Login successful!');
+          } else {
+            vm.loginError = 'Invalid username or password.';
+          }
+        };
+
+        // Logout
+        vm.logout = function() {
+          vm.isLoggedIn = false;
+        };
+
+        // Delete user (clear registration)
+        vm.deleteUser = function() {
+          if ($window.confirm('Delete registered user? This will clear localStorage.')) {
+            vm.user = {};
+            vm.isRegistered = false;
+            vm.isLoggedIn = false;
+            $window.localStorage.removeItem('awp_user');
+            alert('User deleted.');
+          }
+        };
+
+      }]);
+  </script>
+</body>
+</html>
